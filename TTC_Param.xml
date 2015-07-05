@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<flow_graph>
+    <block>
+        <key>container_float2float</key>
+        <name>container_float2float_0</name>
+        <affinity>0</affinity>
+        <subblock>
+            <key>TTCTask_student</key>
+            <name>TTCTask_student_0</name>
+            <param>
+                <key>nAtt</key>
+                <name>nAtt</name>
+                <value>25</value>
+                <type>int</type>
+            </param>
+            <param>
+                <key>fK</key>
+                <name>fK</name>
+                <value>0.7</value>
+                <type>float</type>
+            </param>
+        </subblock>
+    </block>
+</flow_graph>
