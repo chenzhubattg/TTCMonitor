@@ -16,14 +16,10 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         treewidget.cpp \
-    TCPServer.cpp \
-    tcpclientsocket.cpp \
     common.cpp \
 #    TCPClient.cpp
 
 HEADERS  += treewidget.h \
-    TCPServer.h \
-    tcpclientsocket.h \
     common.h \
  #   TCPClient.h
 

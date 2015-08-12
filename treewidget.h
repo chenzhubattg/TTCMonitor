@@ -15,9 +15,11 @@
 #include <tinyxml/tinyxml.h>
 #include <QTcpSocket>
 #include <QHostAddress>
-#include "TCPServer.h"
 #include <QIcon>
 #include <QTimer>
+#include <QSettings>
+#include "common.h"
+
 
 #include<vector>
 #include<map>
@@ -83,21 +85,15 @@ public:
     bool readXml(char *filepath);
 
     QTcpSocket *pSocket;
-
+    QString fileName;
 
 private slots:
+    //setting
     void on_pushButton_clicked();
-
-    //  void on_pushButtonConnectServer_clicked();
-
-    void on_pushButton_Listen_clicked();
-    void on_pushButton_load_clicked();
 
     void on_pushButton_start_clicked();
 
     void on_pushButton_stop_clicked();
-
-    void on_pushButton_Kill_clicked();
 
     void on_treeWidget_param_itemChanged(QTreeWidgetItem *item, int column);
 
@@ -107,13 +103,19 @@ private slots:
 
     void update();
 
-    void on_pushButton_send_clicked();
+    void on_pushButton_load_clicked();
 
     void on_pushButton_Connect_clicked();
 
     void slotDisconnected();
 
     void on_pushButton_Disconnect_clicked();
+
+    void on_lineEdit_IpAddress_textChanged(const QString &arg1);
+
+    void on_lineEdit_Port_textChanged(const QString &arg1);
+
+    void dataReceived();
 
 public:
     void log(QString &str,int type,bool  display);
@@ -122,24 +124,8 @@ private:
     Ui::treeWidget *ui;
     QList<QTreeWidgetItem *> TreeWigItmsParam;
     QList<QTreeWidgetItem *> TreeWigItmsStatus;
-    QStringList headers;
-    QList<QString> Block_Key_List, Block_Affinity_List, Sub_Key_List;
-    TiXmlDeclaration *decl;
-    TiXmlElement  *graphElement,
-    *blockElement,        *blockkeyElement,       *blocknameElement, *blockaffinityElement,
-    *subblockElement, *subblockkeyElement, *subblocknameElement,
-    *paramElement,     *paramkeyElement,      *paramnameElement, *paramvalueElement, *paramtypeElement;
-    TCPServer *pserver;
     TiXmlDocument *doc3;
-    QTcpSocket *tcpSocket;
-    QHostAddress *serverIP;
-    bool ParseXml(const char* filepath,
-                              GRAPH &graph,
-                              TiXmlElement* &root ,
-                              TiXmlDocument * &docxml,
-                              QList<QTreeWidgetItem *> &TreeWigItms,
-                              QMap<QTreeWidgetItem *, TiXmlNode *> &domElementForItem,
-                              int type);
+
     QMap<QTreeWidgetItem *, TiXmlNode *> domElementForItem_status;
     QMap<QTreeWidgetItem *, TiXmlNode *> domElementForItem_param;
     QIcon folderIcon;
@@ -154,6 +140,26 @@ private:
 
     GRAPH graphParam;
     GRAPH graphStatus;
+
+    QByteArray dataFlow;
+
+    bool ParseXml(const char* filepath,
+                              GRAPH &graph,
+                              TiXmlElement* &root ,
+                              TiXmlDocument * &docxml,
+                              QList<QTreeWidgetItem *> &TreeWigItms,
+                              QMap<QTreeWidgetItem *, TiXmlNode *> &domElementForItem,
+                              int type);
+
+    bool UpdateXmlState(const char* filepath,
+                              GRAPH &graph,
+                              TiXmlElement* &root ,
+                              TiXmlDocument * &docxml,
+                              QList<QTreeWidgetItem *> &TreeWigItms,
+                              QMap<QTreeWidgetItem *, TiXmlNode *> &domElementForItem,
+                              int type);
+
+    void UpdateState(stFrameHeader &head, char * body, int dataLen);
 };
 
 #endif // TREEWIDGET_H

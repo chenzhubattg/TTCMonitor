@@ -3,7 +3,8 @@
 #include <string>
 #include <QString>
 
-
+#pragma pack(push)
+#pragma pack(1)
 
 using namespace std;
 extern const QString glbstrXMLParamFile;
@@ -73,7 +74,7 @@ public:
         cmd = 0x11;
     }
     char FLAG[4];
-    qint16 DATA_LEN;
+    qint32 DATA_LEN;
     qint16 cmd;
 };//head for msg
 
@@ -112,5 +113,6 @@ public:
 };      // ID : 000 001 010 011 100  101 110 111
 extern bool KillProcess(QString sName);
 extern void InitSystemParam();
+#pragma pack(pop)
 #endif  // DATACLASS
 

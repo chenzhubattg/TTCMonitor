@@ -3,6 +3,7 @@
 #include <QDebug>
 #include "treewidget.h"
 using namespace std;
+
 extern treeWidget *pWidget;
 TCPServer::TCPServer(QObject *parent,int port)
     :QTcpServer(parent)
